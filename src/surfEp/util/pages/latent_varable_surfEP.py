@@ -219,5 +219,5 @@ def latent_variable_surfEP():
     #     unsafe_allow_html=True,
     # )
 
-    raise SystemExit
+    #raise SystemExit
     write_st_end()
