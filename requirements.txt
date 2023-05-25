@@ -11,3 +11,6 @@ seaborn==0.11.1
 statannot==0.2.3
 statsmodels==0.13.1
 streamlit==1.8.1
+scikit-learn==1.2.1
+ase==3.22.0
+seaborn==0.12.1
