@@ -28,13 +28,7 @@ from util.functions.path import get_file_path, get_dir_name, util_str, data_str
 from util.pages.home_page import home_page
 from util.pages.general_surfEP import general_surfEP
 from util.pages.latent_varable_surfEP import latent_variable_surfEP
-# from util.pages.overview_page import overview_page
-# from util.pages.pdb_page import pdb_page
-# from util.pages.conformation_page import conformation_page
-# from util.pages.mutation_page import mutation_page
-# from util.pages.inhibitor_page import inhibitor_page
-# from util.pages.query_page import query_page
-# from util.pages.classify_page import classify_page
+
 
 
 class MultiApp:
@@ -67,11 +61,6 @@ app = MultiApp()
 app.add_app("Home Page", home_page)
 app.add_app("SurfEP", general_surfEP)
 app.add_app("Latent-variable SurfEP", latent_variable_surfEP)
-# app.add_app("Search PDB", pdb_page)
-# app.add_app("Explore Conformations", conformation_page)
-# app.add_app("Analyze Mutations", mutation_page)
-# app.add_app("Compare Inhibitors", inhibitor_page)
-# app.add_app("Query Database", query_page)
-# app.add_app("Classify Structures", classify_page)
+
 
 app.run()

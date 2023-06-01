@@ -170,19 +170,21 @@ def latent_variable_surfEP():
                 st.write(':red[This current version of Latent-variable SurfEp cannot predict ' + adsorbate + ' at the ' + siteType + ' site. Try another adsorbate and/or site]') 
                 raise SystemExit
             
-            except IndexError:
-                st.write('Enter doping locations and/or adsorption site locations') 
-                raise SystemExit
-            
             #st.write('Predicted adsorption energy (eV):', predAdsList[0][0][0])
 
             #temporary fix (sign of mamums dataset has been set to negative from the source code), i'm now fixing the sign for montemore's dataset here
-            if pred_type=='Bulk adsorption energy':
-                st.write('Predicted adsorption energy (eV):', predAdsList[0][0][0])
-        
+            
+            try:
+                if pred_type=='Bulk adsorption energy':
+                    st.write('Predicted adsorption energy (eV):', predAdsList[0][0][0])
+            
 
-            elif pred_type=='Surface adsorption energy':
-                st.write('Predicted adsorption energy (eV):', predAdsList[0][0][0])
+                elif pred_type=='Surface adsorption energy':
+                    st.write('Predicted adsorption energy (eV):', predAdsList[0][0][0])
+                    
+            except IndexError:
+                st.write('Enter doping locations and/or adsorption site locations') 
+                raise SystemExit
                 
 
 
