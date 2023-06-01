@@ -180,7 +180,7 @@ def latent_variable_surfEP():
             
 
                 elif pred_type=='Surface adsorption energy':
-                    st.write('Predicted adsorption energy (eV):', predAdsList[0][0][0])
+                    st.write('Predicted adsorption energy (eV):', -1 * predAdsList[0][0][0])
                     
             except IndexError:
                 st.write(':red[Enter doping locations and/or adsorption site locations]') 
