@@ -119,22 +119,33 @@ def latent_variable_surfEP():
 
     left_col.image(img_1, output_format="PNG")
     with right_col:
+        
+        pred_type=st.radio("Prediction type :",
+                 ('Bulk adsorption energy','Surface adsorption energy'))
+        
         hostMetal=st.selectbox("Choose host metal",
                             ('Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Ru','Os','Re','Ti','Zr','Hf','Sc'))
         dopingMetal=st.selectbox("Select doping metal(s)",
                                     ('Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Fe','Ru','Os','Mn','Re','Cr','Mo','W','V','Ta','Ti','Zr','Hf','Sc'))
-        adsorbate=st.selectbox("Choose host adsorbate",
-                                ('C', 'N', 'O', 'OH', 'H', 'S', 'K', 'F'))
+        if pred_type=='Surface adsorption energy':
+            adsorbate=st.selectbox("Choose host adsorbate",
+                                    ('C', 'N', 'O', 'OH', 'H', 'S', 'K', 'F'))
+        elif pred_type=='Bulk adsorption energy':
+            adsorbate=st.selectbox("Choose host adsorbate",
+                                    ('C','O','H','N','CH','CH2','CH3','NH'))
         dopingLocations=st.multiselect("Select doping locations",
                                        (i for i in range(18)))
-        siteType=st.selectbox("Choose adsorbing site", 
-                              ('Top','Bridge','Hollow'))
+        if pred_type=='Surface adsorption energy':
+            siteType=st.selectbox("Choose adsorbing site", 
+                                ('Top','Bridge','Hollow'))
+        elif pred_type=='Bulk adsorption energy':
+            siteType=st.selectbox("Choose adsorbing site", 
+                                ('Top','Bridge','FCCHollow','HCPHollow'))
         adsorptionSite_dict=st.multiselect("Select adsorbing sites indices",
                                        (i for i in range(9)))
         surfaceIndicesList = [[0,1,2,3,4,5,6,7,8]]
 
-        pred_type=st.radio("Prediction type :",
-                 ('Bulk adsorption energy','Surface adsorption energy'))
+        
 
         ### Set up and view structure
         # Import host metal structure
