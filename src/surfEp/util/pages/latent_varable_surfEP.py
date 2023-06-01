@@ -183,7 +183,7 @@ def latent_variable_surfEP():
                     st.write('Predicted adsorption energy (eV):', predAdsList[0][0][0])
                     
             except IndexError:
-                st.write('Enter doping locations and/or adsorption site locations') 
+                st.write(':red[Enter doping locations and/or adsorption site locations]') 
                 raise SystemExit
                 
 

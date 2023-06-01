@@ -181,8 +181,12 @@ def general_surfEP():
             except KeyError:
                 st.write(':red[This current version of SurfEp cannot predict ' + adsorbate + ' at the ' + siteType + ' site. Try another adsorbate and/or site]') 
                 raise SystemExit
-     
-            st.write('Predicted adsorption energy (eV):', predAdsList[0][0][0])
+            try:
+                st.write('Predicted adsorption energy (eV):', predAdsList[0][0][0])
+                
+            except IndexError:
+                st.write(':red[Enter doping locations and/or adsorption site locations]') 
+                raise SystemExit
 
             write(str(Path(__file__).parent) + '/del.png', slab)
             img_3 = Image.open(
