@@ -66,7 +66,7 @@ def home_page():
         """
         ### Overview
         - Released by the [Montemore group at Tulane University](https://www.montemoregroup.org/). Email mmontemore@tulane.edu with questions or comments.
-        - *SurfEP*, for Surface Energetics Prediction, allows the prediction of surface and bulk adsorption energies on metal alloy surfaces, as well as surface formation energies. These are currently implemented separately.
+        - *SurfEp*, for Surface Energetics Prediction, allows the prediction of surface and bulk adsorption energies on metal alloy surfaces, as well as surface formation energies. These are currently implemented separately.
         - If you use this package or method in your research, please cite the relevant publication(s).
 
         
@@ -93,9 +93,9 @@ def home_page():
         each page:
 
         - **Home Page:** We are here!
-        - **Surface adsorption energies:** Uses the SurfEp class for adsorption energy predictions.
-        - **Bulk adsorption energies:** Uses the latent-variable SurfEp class (improved version of SurfEp) for adsorption energy predictions.
-        - **Surface energies (stability):** Uses an element-centered fingerprint for surface stability predictions.
+        - **SurfEp:** Uses the SurfEp class for surface adsorption energy predictions.
+        - **latent-variable SurfEp:** Uses the latent-variable SurfEp class (improved version of SurfEp) for both Surface & Bulk adsorption energy predictions.
+        - **ECFP:** Uses an element-centered fingerprint for surface stability predictions.
         
         """
     )

@@ -9,6 +9,7 @@ import numpy as np
 from ase.visualize import view
 import copy
 import matplotlib.pyplot as plt
+from ase.build import add_adsorbate
 #from ase.io import write
 
 
@@ -37,20 +38,13 @@ def general_surfEP():
         )
     )
 
-    left_col.image(img_1, output_format="PNG")
-    # show_st_structure(mask_equal(df, pdb_code_col, "6oim"),
-    #         zoom=1.2,
-    #         width=400,
-    #         height=300,
-    #         cartoon_trans=0,
-    #         surface_trans=1,
-    #         spin_on=True,
-    #         st_col=left_col)
+    # left_col.image(img_1, output_format="PNG")
+   
 
-    right_col.markdown("# SurfEp")
-    right_col.markdown("### A tool for predicting alloy energetics")
-    right_col.markdown("**Created by the Montemore group**")
-    #right_col.markdown("**The Montemore group**")
+    # right_col.markdown("# SurfEp")
+    # right_col.markdown("### A tool for predicting alloy energetics")
+    # right_col.markdown("**Created by the Montemore group**")
+    
 
     group_link_dict = {
         "Group's website": "https://www.montemoregroup.org/",
@@ -77,12 +71,12 @@ def general_surfEP():
 
     #     create_st_button(link_text, link_url, st_col=st_col)
 
-    st.markdown("---")
+    #st.markdown("---")
 
     st.markdown(
         """
-        ### SurfEP
-        SurfEP is organized as a class, which is initialized by calling surfEP(). There are optional arguments for the locations of the files that give the model parameters. Once a class object has been created, the primary function is atomsToAds(), which takes a list of atoms objects for the surfaces, a list of adsorbates, the site type, a list of the site indices (a list of lists, where each sublist contains the indices of a site), and a list of surface indices (the indices of all of the atoms in the surface). 
+        ## SurfEp
+        SurfEp is organized as a class, which is initialized by calling surfEp(). There are optional arguments for the locations of the files that give the model parameters. Once a class object has been created, the primary function is atomsToAds(), which takes a list of atoms objects for the surfaces, a list of adsorbates, the site type, a list of the site indices (a list of lists, where each sublist contains the indices of a site), and a list of surface indices (the indices of all of the atoms in the surface). 
 
         - Possible host metals: ['Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Ru','Os','Re','Ti','Zr','Hf','Sc']
         - Possible dopant metals: ['Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Fe','Ru','Os','Mn','Re','Cr','Mo','W','V','Ta','Ti','Zr','Hf','Sc']
@@ -127,7 +121,7 @@ def general_surfEP():
         siteType=st.selectbox("Choose adsorbing site", 
                               ('Top','Bridge','Hollow'))
         adsorptionSite_dict=st.multiselect("Select adsorbing sites indices",
-                                       (i for i in range(9)))
+                                       (i for i in range(9)), max_selections=3)
         surfaceIndicesList = [[0,1,2,3,4,5,6,7,8]]
 
         ### Set up and view structure
@@ -163,7 +157,8 @@ def general_surfEP():
                 st.write(':red[Enter doping locations and/or adsorption site locations]') 
                 raise SystemExit
 
-            write(str(Path(__file__).parent) + '/del.png', slab)
+            add_adsorbate(slab,adsorbate,2.3,)
+            write(str(Path(__file__).parent) + '/del.png', slab,)# rotation='10z,-80x')
             img_3 = Image.open(
             get_file_path(
             "del.png",
@@ -174,10 +169,10 @@ def general_surfEP():
             st.markdown(" ")
             st.markdown(" ")
             st.markdown(" ")
-            left_col.image(img_3, output_format="PNG")
+            right_col.image(img_3, output_format="PNG")
         
     
-    st.markdown("---")
+    #st.markdown("---")
 
 
     write_st_end()

@@ -22,9 +22,11 @@ from util.pages.latent_varable_surfEP import latent_variable_surfEP
 class MultiApp:
     def __init__(self):
         self.apps = []
+        self.app_func = {}
 
     def add_app(self, title, func):
         self.apps.append({"title": title, "function": func})
+        self.app_func[title] = func
 
     def run(self):
         img = Image.open(
@@ -41,14 +43,15 @@ class MultiApp:
             "Select Page", self.apps, format_func=lambda app: app["title"]
         )
         st.sidebar.markdown("---")
-        app["function"]()
+        #app["function"]()
+        self.app_func[app["title"]]()
 
 
 app = MultiApp()
 
 app.add_app("Home Page", home_page)
-app.add_app("SurfEP", general_surfEP)
-app.add_app("Latent-variable SurfEP", latent_variable_surfEP)
+app.add_app("SurfEp", general_surfEP)
+app.add_app("Latent-variable SurfEp", latent_variable_surfEP)
 
 
 app.run()

@@ -9,6 +9,7 @@ import numpy as np
 from ase.visualize import view
 import copy
 import matplotlib.pyplot as plt
+from ase.build import add_adsorbate
 #from ase.io import write
 
 
@@ -30,27 +31,20 @@ def latent_variable_surfEP():
     df = load_st_table(__file__)
 
 
-    img_1 = Image.open(
-        get_file_path(
-            "web_image.png",
-            dir_path=get_neighbor_path(__file__, pages_str, data_str),
-        )
-    )
+    # img_1 = Image.open(
+    #     get_file_path(
+    #         "web_image.png",
+    #         dir_path=get_neighbor_path(__file__, pages_str, data_str),
+    #     )
+    # )
 
-    left_col.image(img_1, output_format="PNG")
-    # show_st_structure(mask_equal(df, pdb_code_col, "6oim"),
-    #         zoom=1.2,
-    #         width=400,
-    #         height=300,
-    #         cartoon_trans=0,
-    #         surface_trans=1,
-    #         spin_on=True,
-    #         st_col=left_col)
+    # left_col.image(img_1, output_format="PNG")
+   
 
-    right_col.markdown("# SurfEp")
-    right_col.markdown("### A tool for predicting alloy energetics")
-    right_col.markdown("**Created by the Montemore group**")
-    #right_col.markdown("**The Montemore group**")
+    # right_col.markdown("# SurfEp")
+    # right_col.markdown("### A tool for predicting alloy energetics")
+    # right_col.markdown("**Created by the Montemore group**")
+    # #right_col.markdown("**The Montemore group**")
 
     group_link_dict = {
         "Group's website": "https://www.montemoregroup.org/",
@@ -74,12 +68,12 @@ def latent_variable_surfEP():
 
     
 
-    st.markdown("---")
+    #st.markdown("---")
 
     st.markdown(
         """
-        ### Latent-Variable SurfEP
-        Latent-Variable SurfEP is organized as a class, which is initialized by calling surfEP_lv(). There are optional arguments for the locations of the files that give the model parameters. Once a class object has been created, the primary function is atomsToAds(), which takes a list of atoms objects for the surfaces, a list of adsorbates, the site type, a list of the site indices (a list of lists, where each sublist contains the indices of a site), and a list of surface indices (the indices of all of the atoms in the surface). 
+        ## Latent-Variable SurfEp
+        Latent-Variable SurfEp is organized as a class, which is initialized by calling surfEP_lv(). There are optional arguments for the locations of the files that give the model parameters. Once a class object has been created, the primary function is atomsToAds(), which takes a list of atoms objects for the surfaces, a list of adsorbates, the site type, a list of the site indices (a list of lists, where each sublist contains the indices of a site), and a list of surface indices (the indices of all of the atoms in the surface). 
 
         - Possible host metals: ['Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Ru','Os','Re','Ti','Zr','Hf','Sc']
         - Possible dopant metals: ['Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Fe','Ru','Os','Mn','Re','Cr','Mo','W','V','Ta','Ti','Zr','Hf','Sc']
@@ -101,39 +95,41 @@ def latent_variable_surfEP():
 
         """
     )
-    img_1 = Image.open(
+    img_2 = Image.open(
         get_file_path(
             "latent_variable.png",
             dir_path=get_neighbor_path(__file__, pages_str, data_str),
         )
     )
 
-    left_col.image(img_1, output_format="PNG")
+    left_col.image(img_2, output_format="PNG")
     with right_col:
         
-        pred_type=st.radio("Prediction type :",
-                 ('Bulk adsorption energy','Surface adsorption energy'))
+        pred_type=st.radio(" Prediction type :",
+                 ('Fit to Bulk alloys','Fit to Surface alloys'))
+        
+        st.markdown("---")
         
         hostMetal=st.selectbox("Choose host metal",
                             ('Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Ru','Os','Re','Ti','Zr','Hf','Sc'))
         dopingMetal=st.selectbox("Select doping metal(s)",
                                     ('Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Fe','Ru','Os','Mn','Re','Cr','Mo','W','V','Ta','Ti','Zr','Hf','Sc'))
-        if pred_type=='Surface adsorption energy':
+        if pred_type=='Fit to Surface alloys':
             adsorbate=st.selectbox("Choose host adsorbate",
                                     ('C', 'N', 'O', 'OH', 'H', 'S', 'K', 'F'))
-        elif pred_type=='Bulk adsorption energy':
+        elif pred_type=='Fit to Bulk alloys':
             adsorbate=st.selectbox("Choose host adsorbate",
                                     ('C','O','H','N','CH','CH2','CH3','NH'))
         dopingLocations=st.multiselect("Select doping locations",
                                        (i for i in range(18)))
-        if pred_type=='Surface adsorption energy':
+        if pred_type=='Fit to Surface alloys':
             siteType=st.selectbox("Choose adsorbing site", 
                                 ('Top','Bridge','Hollow'))
-        elif pred_type=='Bulk adsorption energy':
+        elif pred_type=='Fit to Bulk alloys':
             siteType=st.selectbox("Choose adsorbing site", 
                                 ('Top','Bridge','FCCHollow','HCPHollow'))
         adsorptionSite_dict=st.multiselect("Select adsorbing sites indices",
-                                       (i for i in range(9)))
+                                       (i for i in range(9)), max_selections=3)
         surfaceIndicesList = [[0,1,2,3,4,5,6,7,8]]
 
         
@@ -143,11 +139,11 @@ def latent_variable_surfEP():
         from pathlib import Path
         par_dir=Path(__file__).parent.parent
 
-        if pred_type=='Bulk adsorption energy':
+        if pred_type=='Fit to Bulk alloys':
             json_path=get_file_path("datas/JSONFiles_Lv_bulk/",
                     dir_path=str(par_dir)#f"{get_dir_name(__file__)}/{util_str}",
                     )
-        elif pred_type=='Surface adsorption energy':
+        elif pred_type=='Fit to Surface alloys':
             json_path=get_file_path("datas/JSONFiles_Lv_surface/",
                     dir_path=str(par_dir)#f"{get_dir_name(__file__)}/{util_str}",
                     )
@@ -177,11 +173,11 @@ def latent_variable_surfEP():
             #temporary fix (sign of mamums dataset has been set to negative from the source code), i'm now fixing the sign for montemore's dataset here
             
             try:
-                if pred_type=='Bulk adsorption energy':
+                if pred_type=='Fit to Bulk alloys':
                     st.write('Predicted adsorption energy (eV):', predAdsList[0][0][0])
             
 
-                elif pred_type=='Surface adsorption energy':
+                elif pred_type=='Fit to Surface alloys':
                     st.write('Predicted adsorption energy (eV):', -1 * predAdsList[0][0][0])
                     
             except IndexError:
@@ -190,7 +186,8 @@ def latent_variable_surfEP():
                 
 
 
-            write(str(Path(__file__).parent) + '/del.png', slab)
+            add_adsorbate(slab,adsorbate,2.3,)
+            write(str(Path(__file__).parent) + '/del.png', slab,)# rotation='10z,-80x')
             img_3 = Image.open(
             get_file_path(
             "del.png",
@@ -201,31 +198,11 @@ def latent_variable_surfEP():
             st.markdown(" ")
             st.markdown(" ")
             st.markdown(" ")
-            left_col.image(img_3, output_format="PNG")
+            right_col.image(img_3, output_format="PNG")
         
     
     st.markdown("---")
 
-    # left_info_col, right_info_col = st.columns(2)
-
-    # left_info_col.markdown(
-    #     f"""
-    #     The current version of this package is an early release. While it has been tested, it may have unexpected behavior in some situations.
-
-    #     If comparing to your own DFT data, we suggest you do a linear fit between SurfEP predictions and your data, for the particular subset of alloys and adsorbate you're interested in.
-
-    #     ### Authors
-    #     Please feel free to contact us with any issues, comments, or questions.
-
-    #     ##### Mattew montemore 
-
-    #     - Email:  <mmontemore@tulane.edu> 
-       
-
-    #     ##### Gbolade Kayode
-    #     """,
-    #     unsafe_allow_html=True,
-    # )
 
     raise SystemExit
     write_st_end()
