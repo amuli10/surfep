@@ -64,7 +64,7 @@ def latent_variable_surfEP():
 
     paper_link_dict = {
         "SurfEP paper": "https://pubs.rsc.org/en/content/articlelanding/2020/cy/d0cy00682c",
-        "Latent-variable SurfEP paper": "",
+        "Latent-variable SurfEP paper": "https://pubs.acs.org/doi/full/10.1021/jacsau.3c00419",
         "ECFP paper": "https://iopscience.iop.org/article/10.1088/2515-7655/aca122",
     }
 

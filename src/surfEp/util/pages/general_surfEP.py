@@ -64,7 +64,7 @@ def general_surfEP():
 
     paper_link_dict = {
         "SurfEP paper": "https://pubs.rsc.org/en/content/articlelanding/2020/cy/d0cy00682c",
-        "Latent-variable SurfEP paper": "",
+        "Latent-variable SurfEP paper": "https://pubs.acs.org/doi/full/10.1021/jacsau.3c00419",
         "ECFP paper": "https://iopscience.iop.org/article/10.1088/2515-7655/aca122",
     }
 
@@ -72,33 +72,8 @@ def general_surfEP():
     for link_text, link_url in paper_link_dict.items():
         create_st_button(link_text, link_url, st_col=st.sidebar)
 
-    # software_link_dict = {
-    #     "BioPython": "https://biopython.org",
-    #     "RDKit": "https://www.rdkit.org",
-    #     "PDBrenum": "http://dunbrack.fccc.edu/PDBrenum/",
-    #     "Fpocket": "https://bioserv.rpbs.univ-paris-diderot.fr/services/fpocket/",
-    #     "PyMOL": "https://pymol.org/2/",
-    #     "3Dmol": "https://3dmol.csb.pitt.edu",
-    #     "Pandas": "https://pandas.pydata.org",
-    #     "NumPy": "https://numpy.org",
-    #     "SciPy": "https://scipy.org",
-    #     "Sklearn": "https://scikit-learn.org/stable/",
-    #     "Matplotlib": "https://matplotlib.org",
-    #     "Seaborn": "https://seaborn.pydata.org",
-    #     "Streamlit": "https://streamlit.io",
-    # }
+   
 
-    # st.sidebar.markdown("## Software-Related Links")
-    # link_1_col, link_2_col, link_3_col = st.sidebar.columns(3)
-
-    # i = 0
-    # link_col_dict = {0: link_1_col, 1: link_2_col, 2: link_3_col}
-    # for link_text, link_url in software_link_dict.items():
-
-    #     st_col = link_col_dict[i]
-    #     i += 1
-    #     if i == len(link_col_dict.keys()):
-    #         i = 0
 
     #     create_st_button(link_text, link_url, st_col=st_col)
 
@@ -203,27 +178,6 @@ def general_surfEP():
         
     
     st.markdown("---")
-
-    # left_info_col, right_info_col = st.columns(2)
-
-    # left_info_col.markdown(
-    #     f"""
-    #     The current version of this package is an early release. While it has been tested, it may have unexpected behavior in some situations.
-
-    #     If comparing to your own DFT data, we suggest you do a linear fit between SurfEP predictions and your data, for the particular subset of alloys and adsorbate you're interested in.
-
-    #     ### Authors
-    #     Please feel free to contact us with any issues, comments, or questions.
-
-    #     ##### Mattew montemore 
-
-    #     - Email:  <mmontemore@tulane.edu> 
-       
-
-    #     ##### Gbolade Kayode
-    #     """,
-    #     unsafe_allow_html=True,
-    # )
 
 
     write_st_end()
