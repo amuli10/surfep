@@ -10,6 +10,7 @@ from ase.visualize import view
 import copy
 import matplotlib.pyplot as plt
 from ase.build import add_adsorbate
+from ase import Atoms
 #from ase.io import write
 
 
@@ -109,6 +110,17 @@ def general_surfEP():
 
     left_col.image(img_1, output_format="PNG")
 
+    left_col.markdown("")
+
+    img_2 = Image.open(
+        get_file_path(
+            "doping_location.png",
+            dir_path=get_neighbor_path(__file__, pages_str, data_str),
+        )
+    )
+
+    left_col.image(img_2, output_format="PNG",)#width=100,caption="Doping location")
+
     with right_col:
         hostMetal=st.selectbox("Choose host metal",
                             ('Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Ru','Os','Re','Ti','Zr','Hf','Sc'))
@@ -120,8 +132,11 @@ def general_surfEP():
                                        (i for i in range(18)))
         siteType=st.selectbox("Choose adsorbing site", 
                               ('Top','Bridge','Hollow'))
+        
+        site_dict={'Top':1,'Bridge':2,'FCCHollow':3,'HCPHollow':3, 'Hollow':3}  
+
         adsorptionSite_dict=st.multiselect("Select adsorbing sites indices",
-                                       (i for i in range(9)), max_selections=3)
+                                       (i for i in range(9)), max_selections=site_dict[siteType])
         surfaceIndicesList = [[0,1,2,3,4,5,6,7,8]]
 
         ### Set up and view structure
@@ -157,8 +172,19 @@ def general_surfEP():
                 st.write(':red[Enter doping locations and/or adsorption site locations]') 
                 raise SystemExit
 
-            add_adsorbate(slab,adsorbate,2.3,)
-            write(str(Path(__file__).parent) + '/del.png', slab,)# rotation='10z,-80x')
+            #add_adsorbate(slab,adsorbate,2.3,)
+            def add_adsorbate():
+                originalSlab = copy.deepcopy(slab)
+                center = slab.get_scaled_positions()[adsorptionSite[0]]
+                slab.wrap(center=center)
+                adsPos = np.array(np.mean(slab.positions[adsorptionSite],axis=0))
+                adsPos = adsPos + [0,0,0.75]
+                adsAtoms = Atoms(adsorbate,positions=[adsPos]) 
+                atomsNew = originalSlab+adsAtoms
+                return atomsNew
+
+
+            write(str(Path(__file__).parent) + '/del.png', add_adsorbate())#, rotation='10z,-80x')
             img_3 = Image.open(
             get_file_path(
             "del.png",

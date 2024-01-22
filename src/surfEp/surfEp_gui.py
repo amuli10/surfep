@@ -16,6 +16,7 @@ from util.functions.path import get_file_path, get_dir_name, util_str, data_str
 from util.pages.home_page import home_page
 from util.pages.general_surfEP import general_surfEP
 from util.pages.latent_varable_surfEP import latent_variable_surfEP
+from util.pages.ECFP import ECFP
 
 
 
@@ -52,6 +53,7 @@ app = MultiApp()
 app.add_app("Home Page", home_page)
 app.add_app("SurfEp", general_surfEP)
 app.add_app("Latent-variable SurfEp", latent_variable_surfEP)
+app.add_app("ECFP", ECFP)
 
 
 app.run()

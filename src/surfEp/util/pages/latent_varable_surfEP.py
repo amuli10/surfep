@@ -10,7 +10,7 @@ from ase.visualize import view
 import copy
 import matplotlib.pyplot as plt
 from ase.build import add_adsorbate
-#from ase.io import write
+from ase import Atoms
 
 
 #import surfEP
@@ -103,6 +103,17 @@ def latent_variable_surfEP():
     )
 
     left_col.image(img_2, output_format="PNG")
+    left_col.markdown("")
+
+    img_3 = Image.open(
+        get_file_path(
+            "doping_location.png",
+            dir_path=get_neighbor_path(__file__, pages_str, data_str),
+        )
+    )
+
+    left_col.image(img_3, output_format="PNG",)#width=100,caption="Doping location")
+
     with right_col:
         
         pred_type=st.radio(" Prediction type :",
@@ -128,8 +139,11 @@ def latent_variable_surfEP():
         elif pred_type=='Fit to Bulk alloys':
             siteType=st.selectbox("Choose adsorbing site", 
                                 ('Top','Bridge','FCCHollow','HCPHollow'))
+            
+        site_dict={'Top':1,'Bridge':2,'FCCHollow':3,'HCPHollow':3, 'Hollow':3}  
+
         adsorptionSite_dict=st.multiselect("Select adsorbing sites indices",
-                                       (i for i in range(9)), max_selections=3)
+                                       (i for i in range(9)), max_selections=site_dict[siteType])
         surfaceIndicesList = [[0,1,2,3,4,5,6,7,8]]
 
         
@@ -184,11 +198,18 @@ def latent_variable_surfEP():
                 st.write(':red[Enter doping locations and/or adsorption site locations]') 
                 raise SystemExit
                 
+            def add_adsorbate():
+                originalSlab = copy.deepcopy(slab)
+                center = slab.get_scaled_positions()[adsorptionSite[0]]
+                slab.wrap(center=center)
+                adsPos = np.array(np.mean(slab.positions[adsorptionSite],axis=0))
+                adsPos = adsPos + [0,0,0.75]
+                adsAtoms = Atoms(adsorbate,positions=[adsPos]) 
+                atomsNew = originalSlab+adsAtoms
+                return atomsNew
 
-
-            add_adsorbate(slab,adsorbate,2.3,)
-            write(str(Path(__file__).parent) + '/del.png', slab,)# rotation='10z,-80x')
-            img_3 = Image.open(
+            write(str(Path(__file__).parent) + '/del.png', add_adsorbate(),)# rotation='10z,-80x')
+            img_4 = Image.open(
             get_file_path(
             "del.png",
             dir_path=str(Path(__file__).parent),
@@ -198,11 +219,13 @@ def latent_variable_surfEP():
             st.markdown(" ")
             st.markdown(" ")
             st.markdown(" ")
-            right_col.image(img_3, output_format="PNG")
+            right_col.image(img_4, output_format="PNG")
         
     
-    st.markdown("---")
+    #st.markdown("---")
+
+    write_st_end()
 
 
     raise SystemExit
-    write_st_end()
+   
