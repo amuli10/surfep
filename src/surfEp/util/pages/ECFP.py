@@ -99,7 +99,7 @@ def ECFP():
     )
     img_1 = Image.open(
         get_file_path(
-            "ECFP.png",
+            "ecfp.png",
             dir_path=get_neighbor_path(__file__, pages_str, data_str),
         )
     )
