@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from ase.build import add_adsorbate
 from ase import Atoms
 import pickle
+import joblib
 from sklearn.kernel_ridge import KernelRidge
 
 
@@ -80,7 +81,7 @@ def ECFP():
         ## ECFP
         Element-centered fingerprint (ECFP) is a vector representation used in predicting surface formation energies. 
         The ECFP has been shown to be significantly more accurate than several existing feature sets when applied to dilute alloy surfaces and has been shown to be competitive with existing feature sets when applied to bulk alloy surfaces or gas-phase molecules. 
-
+        Please see the relevant publication [here](https://iopscience.iop.org/article/10.1088/2515-7655/aca122)
         
         """
     )
@@ -152,18 +153,27 @@ def ECFP():
 
             maxNeighbors = 12
             nnMult = 1.05
-            ECFP_allSlabs = calcAllFingerprints([slab],maxNeighbors,atomicNumberDict,printFormula=False,nnMult=nnMult, verbose=False)
-            with open(par_dir.joinpath('./datas/ecfp_krr_model.pkl'), 'rb') as f:
-                KRR_model = pickle.load(f)
+
+
+            full_slab= fullSlabs()
+            full_slab.append(slab)
+
+
+            ECFP_allSlabs = calcAllFingerprints(full_slab,maxNeighbors,atomicNumberDict,printFormula=False,nnMult=nnMult, verbose=False)
+            # with open(par_dir.joinpath('./datas/ecfp_krr_model.pkl'), 'rb') as f:
+            #     KRR_model = pickle.load(f)
+
+            # Load the model from a file
+            KRR_model = joblib.load(par_dir.joinpath('./datas/krr_model.joblib'))
            
 
             try:
-                predForm = KRR_model.predict(ECFP_allSlabs)
-            except ValueError:
+                predForm = KRR_model.predict(ECFP_allSlabs)[-1]
+            except TypeError:
                 st.write(':red[The ECFP model is being updated. Please check back soon.]') 
                 raise SystemExit
             try:
-                st.write('Predicted adsorption energy (eV):', predForm)
+                st.write('Predicted formation energy (eV):', predForm)
                 
             except IndexError:
                 st.write(':red[Enter doping locations]') 
@@ -171,7 +181,7 @@ def ECFP():
 
             
 
-            write(str(Path(__file__).parent) + '/del.png', slab,rotation='10z,-80x')
+            write(str(Path(__file__).parent) + '/del.png', slab,)#rotation='10z,-80x')
             img_3 = Image.open(
             get_file_path(
             "del.png",

@@ -9,6 +9,26 @@ def findNeighborIndices(structure,nnDist,activeSpace):
         indicesOfNeighbors[i] = nnListj[whichToTake]
     return indicesOfNeighbors
 
+def fullSlabs():
+    from ase.io import read
+    from pathlib import Path
+    import copy
+    
+    par_dir=Path(__file__).parent.parent
+    hostMetal = 'Ag' # can be any of: 'Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Ru','Os','Re','Ti','Zr','Hf','Sc'
+    dopingMetals = ['Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Fe','Ru','Os','Mn','Re','Cr','Mo','W','V','Ta','Ti','Zr','Hf','Sc']
+    dopingLocations = [0,1,2,4,12]
+    slab = read(par_dir.joinpath('./datas/HostStructures/POSCAR_'+hostMetal))
+    # Dope in metal
+    allSlabs = []
+    for dopingMetal in dopingMetals:
+        dopedSlab = copy.deepcopy(slab)
+        symbols = np.array(dopedSlab.get_chemical_symbols())
+        symbols[dopingLocations] = dopingMetal
+        dopedSlab.set_chemical_symbols(symbols)
+        allSlabs.append(dopedSlab)
+    return allSlabs
+
 def atomicNumberDict():
     return {'H':1,'He':2,'Li':3,'Be':4,'B':5,'C':6,'N':7,'O':8,
     'F':9,'Ne':10,'Na':11,'Mg':12,'Al':13,'Si':14,'P':15,'S':16,

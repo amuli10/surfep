@@ -73,15 +73,10 @@ def latent_variable_surfEP():
     st.markdown(
         """
         ## Latent-Variable SurfEp
-        Latent-Variable SurfEp is organized as a class, which is initialized by calling surfEP_lv(). There are optional arguments for the locations of the files that give the model parameters. Once a class object has been created, the primary function is atomsToAds(), which takes a list of atoms objects for the surfaces, a list of adsorbates, the site type, a list of the site indices (a list of lists, where each sublist contains the indices of a site), and a list of surface indices (the indices of all of the atoms in the surface). 
-
-        - Possible host metals: ['Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Ru','Os','Re','Ti','Zr','Hf','Sc']
-        - Possible dopant metals: ['Cu','Ag','Au','Ni','Pt','Pd','Co','Rh','Ir','Fe','Ru','Os','Mn','Re','Cr','Mo','W','V','Ta','Ti','Zr','Hf','Sc']
-        - Possible adsorbates: Bulk --> ['C','O','H','N','CH','CH2','CH3','NH']  Surface --> ['C', 'N', 'O', 'OH', 'H', 'S', 'K', 'F']
-        - Possible siteTypes: Bulk --> ['Top','Bridge','FCCHollow', 'HCPHollow'] Surface --> ['Top','Bridge','Hollow']
-        - Not all siteTypes may be available for all species.
-        - Other limitations: Currently, only bimetallic fcc(111) and hcp(0001) surfaces are supported, and each surface must be a pure metal in the bulk but can be doped with other atoms in the top two layers. Other geometries and architectures may run, but the predictions are unlikely to be reliable. Further, if the surface dramatically reconstructs or the adsorbate relaxes out of site, the predictions are unlikely to be reliable. The surfaceIndicesList must be sequential and start at 0 (hence, the first few atoms in the atoms object must be in the top layer of the slab).
-        
+        Latent-Variable SurfEp is a new machine learning framework that is built on chemical principles 
+        and allows the creation of general, interpretable, reusable models. Our new architecture uses latent variables
+        to create a set of submodels that each take on a relatively simple learning task, leading to higher data efficiency 
+        and promoting transfer learning. Please see the relevant publication [here](https://pubs.acs.org/doi/full/10.1021/jacsau.3c00419)
         """
     )
 
