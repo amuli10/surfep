@@ -76,8 +76,8 @@ def general_surfEP():
 
     st.markdown(
         """
-        ## SurfEp
-        SurfEp is a general, efficient model that can be used to screen surface alloys for many reactions without 
+        ## SurfEP
+        SurfEP is a general, efficient model that can be used to screen surface alloys for many reactions without 
         any quantum-based calculations. This model allows the prediction of the adsorption energies of a variety of
         species (explicitly shown for C, N, O, OH, H, S, K, F) on metal alloy surfaces that include combinations of nearly all of the d-block metals. 
         Please see the relevant publication [here](https://pubs.rsc.org/en/content/articlelanding/2020/cy/d0cy00682c)
