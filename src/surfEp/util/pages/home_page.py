@@ -33,7 +33,7 @@ def home_page():
     #         spin_on=True,
     #         st_col=left_col)
 
-    right_col.markdown("# SurfEp")
+    right_col.markdown("# SurfEP")
     right_col.markdown("### A tool for predicting alloy energetics")
     right_col.markdown("**Created by the Montemore group**")
     #right_col.markdown("**The Montemore group**")
@@ -66,7 +66,7 @@ def home_page():
         """
         ### Overview
         - Released by the [Montemore group at Tulane University](https://www.montemoregroup.org/). Email mmontemore@tulane.edu with questions or comments.
-        - *SurfEp*, for Surface Energetics Prediction, allows the prediction of surface and bulk adsorption energies on metal alloy surfaces, as well as surface formation energies. These are currently implemented separately.
+        - *SurfEP*, for Surface Energetics Prediction, allows the prediction of surface and bulk adsorption energies on metal alloy surfaces, as well as surface formation energies. These are currently implemented separately.
         - If you use this package or method in your research, please cite the relevant publication(s).
 
         
@@ -93,8 +93,8 @@ def home_page():
         each page:
 
         - **Home Page:** We are here!
-        - **SurfEp:** Uses the SurfEp class for surface adsorption energy predictions.
-        - **latent-variable SurfEp:** Uses the latent-variable SurfEp class (improved version of SurfEp) for both Surface & Bulk adsorption energy predictions.
+        - **SurfEP:** Uses the SurfEP class for surface adsorption energy predictions.
+        - **latent-variable SurfEP:** Uses the latent-variable SurfEP class (improved version of SurfEP) for both Surface & Bulk adsorption energy predictions.
         - **ECFP:** Uses an element-centered fingerprint for surface stability predictions.
         
         """
@@ -114,7 +114,7 @@ def home_page():
         """
         Please feel free to contact us with any issues, comments, or questions.
 
-        ##### Mattew Montemore 
+        ##### Matthew Montemore 
 
         - Email:  <mmontemore@tulane.edu> 
     
