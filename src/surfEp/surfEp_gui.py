@@ -51,8 +51,8 @@ class MultiApp:
 app = MultiApp()
 
 app.add_app("Home Page", home_page)
-app.add_app("SurfEp", general_surfEP)
-app.add_app("Latent-variable SurfEp", latent_variable_surfEP)
+app.add_app("SurfEP", general_surfEP)
+app.add_app("Latent-variable SurfEP", latent_variable_surfEP)
 app.add_app("ECFP", ECFP)
 
 
